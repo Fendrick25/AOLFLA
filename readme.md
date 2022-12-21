@@ -1,4 +1,4 @@
-# Warehouse Inventory System
+# Warehouse Management System
 
 A RESTful API for Warehouse Inventory System
 
