@@ -14,7 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CreateOrderResponse {
     @NotNull
-    private final UUID orderID;
+    private final UUID orderId;
     @NotNull
     private final BigDecimal total;
     @NotNull

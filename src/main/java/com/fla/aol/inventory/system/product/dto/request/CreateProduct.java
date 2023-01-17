@@ -18,7 +18,7 @@ public class CreateProduct {
     @NotNull
     private final int quantity;
     @NotNull
-    private final ProductDetailDTO productDetail;
+    private final ProductDetailDTO detail;
     @NotNull
     private final ProductType type;
 }

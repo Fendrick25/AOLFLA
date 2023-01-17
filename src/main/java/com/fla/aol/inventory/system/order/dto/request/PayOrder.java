@@ -14,7 +14,7 @@ import java.util.UUID;
 public class PayOrder {
 
     @NotNull
-    private final UUID orderID;
+    private final UUID orderId;
     @NotNull
     private final BigDecimal amount;
 }

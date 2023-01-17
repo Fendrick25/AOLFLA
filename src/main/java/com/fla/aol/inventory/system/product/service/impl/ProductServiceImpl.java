@@ -1,5 +1,6 @@
 package com.fla.aol.inventory.system.product.service.impl;
 
+import com.fla.aol.inventory.system.common.exception.InvalidStateException;
 import com.fla.aol.inventory.system.order.entity.OrderItem;
 import com.fla.aol.inventory.system.product.dto.request.CreateProduct;
 import com.fla.aol.inventory.system.product.dto.response.CreateProductResponse;
@@ -30,12 +31,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public CreateProductResponse createProduct(CreateProduct createProduct) {
         Product product = createProductByType(createProduct.getType());
+        if(product == null)
+            throw new InvalidStateException("Invalid product type");
+
         product.setName(createProduct.getName());
         product.setPrice(createProduct.getPrice());
         product.setQuantity(createProduct.getQuantity());
         product.setProductDetail(ProductDetail.builder()
-                .weight(createProduct.getProductDetail().getWeight())
-                .description(createProduct.getProductDetail().getDescription())
+                .weight(createProduct.getDetail().getWeight())
+                .description(createProduct.getDetail().getDescription())
                 .product(product)
                 .build());
 
@@ -66,13 +70,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public GetProductResponse getProduct(Integer productID) {
-        return productDataMapper.productToGetProductResponse(productRepository.findProduct(productID));
+    public GetProductResponse getProduct(Integer productId) {
+        return productDataMapper.productToGetProductResponse(productRepository.findProduct(productId));
     }
 
     @Override
-    public void deleteProduct(Integer productID) {
-        productRepository.deleteProduct(productID);
+    public void deleteProduct(Integer productId) {
+        productRepository.deleteProduct(productId);
     }
 
     private Product createProductByType(ProductType productType) {

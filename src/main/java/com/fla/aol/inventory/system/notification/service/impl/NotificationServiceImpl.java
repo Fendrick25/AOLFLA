@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class NotificationServiceImpl implements NotificationService {
     @Override
     public void orderPaid(OrderPaidEvent orderPaidEvent) {
-        log.info("Order with id: {} paid on {}", orderPaidEvent.getOrderID(), orderPaidEvent.getPurchasedAt());
+        log.info("Order with productId: {} paid on {}", orderPaidEvent.getOrderId(), orderPaidEvent.getPurchasedAt());
     }
 
     @Override
     public void orderCancelled(OrderCancelledEvent orderCancelledEvent) {
-        log.info("Order with id: {} cancelled on {}", orderCancelledEvent.getOrderID(), orderCancelledEvent.getPurchasedAt());
+        log.info("Order with productId: {} cancelled on {}", orderCancelledEvent.getOrderId(), orderCancelledEvent.getPurchasedAt());
     }
 }

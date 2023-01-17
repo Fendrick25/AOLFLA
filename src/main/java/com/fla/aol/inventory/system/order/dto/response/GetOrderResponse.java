@@ -18,7 +18,7 @@ import java.util.UUID;
 public class GetOrderResponse {
 
     @NotNull
-    private final UUID orderID;
+    private final UUID orderId;
     @NotNull
     private final List<OrderItem> items;
     @NotNull
@@ -45,7 +45,7 @@ public class GetOrderResponse {
     @RequiredArgsConstructor
     public static class Product{
         @NotNull
-        private final Integer productID;
+        private final Integer productId;
         @NotNull
         private final String name;
         @NotNull

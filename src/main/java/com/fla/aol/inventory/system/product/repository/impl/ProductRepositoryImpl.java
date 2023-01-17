@@ -21,8 +21,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product findProduct(Integer productID) {
-        return productJpaRepository.findById(productID).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    public Product findProduct(Integer productId) {
+        return productJpaRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void deleteProduct(Integer productID) {
-        Product product = findProduct(productID);
+    public void deleteProduct(Integer productId) {
+        Product product = findProduct(productId);
         productJpaRepository.delete(product);
     }
 }

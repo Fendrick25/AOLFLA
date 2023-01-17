@@ -21,7 +21,7 @@ public class CreateOrder {
     @AllArgsConstructor
     public static class OrderItem{
         @NotNull
-        private final Integer productID;
+        private final Integer productId;
         @NotNull
         private final int quantity;
     }

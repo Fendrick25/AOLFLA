@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ProductDataMapper {
     public CreateProductResponse productToCreateProductResponse(Product product){
         return CreateProductResponse.builder()
-                .id(product.getId())
+                .productId(product.getId())
                 .name(product.getName())
                 .location(product.getLocation())
                 .build();
@@ -18,7 +18,7 @@ public class ProductDataMapper {
 
     public GetProductResponse productToGetProductResponse(Product product){
         return GetProductResponse.builder()
-                .id(product.getId())
+                .productId(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())

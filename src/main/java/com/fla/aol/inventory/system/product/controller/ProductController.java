@@ -22,14 +22,14 @@ public class ProductController {
         return new ResponseEntity<>(new Data<>(productService.createProduct(createProduct)), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{productID}")
-    public ResponseEntity<Data<GetProductResponse>> getProduct(@PathVariable("productID") Integer productID){
+    @GetMapping("/{productId}")
+    public ResponseEntity<Data<GetProductResponse>> getProduct(@PathVariable("productId") Integer productID){
         return new ResponseEntity<>(new Data<>(productService.getProduct(productID)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{productID}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable("productID") Integer productID){
-        productService.deleteProduct(productID);
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("productId") Integer productId){
+        productService.deleteProduct(productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

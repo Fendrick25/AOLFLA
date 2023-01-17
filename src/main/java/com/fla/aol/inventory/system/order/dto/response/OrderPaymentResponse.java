@@ -12,6 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class OrderPaymentResponse {
 
-    private final UUID orderID;
+    private final UUID orderId;
     private final OrderStatus orderStatus;
 }

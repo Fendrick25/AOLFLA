@@ -27,7 +27,7 @@ public class Order {
 
     @Id
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID orderID;
+    private UUID id;
     private BigDecimal total;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -43,7 +43,7 @@ public class Order {
     @Column(columnDefinition = "json")
     private OrderDetail orderDetail;
     public void initializeOrder(){
-        orderID = UUID.randomUUID();
+        id = UUID.randomUUID();
         orderDetail.setPurchaseDate(ZonedDateTime.now(ZoneId.of("UTC")));
         orderStatus = OrderStatus.WAITING_FOR_PAYMENT;
         initializeOrderItems();
@@ -78,9 +78,9 @@ public class Order {
         total = BigDecimal.valueOf(0.0);
         for(OrderItem orderItem : items){
             orderItem.setOrder(Order.builder()
-                            .orderID(orderID)
+                            .id(id)
                     .build());
-            orderItem.initializeOrderItem(orderID.toString().concat(Integer.toString(num++)));
+            orderItem.initializeOrderItem(id.toString().concat(Integer.toString(num++)));
             total = total.add(orderItem.getProduct().getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity())));
         }
 

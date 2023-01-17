@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface OrderService {
     CreateOrderResponse createOrder(@Valid CreateOrder createOrder);
-    GetOrderResponse getOrder(UUID orderID);
+    GetOrderResponse getOrder(UUID orderId);
     OrderPaymentResponse payOrder(@Valid PayOrder payOrder);
-    OrderPaymentResponse cancelOrder(UUID orderID);
+    OrderPaymentResponse cancelOrder(UUID orderId);
 }

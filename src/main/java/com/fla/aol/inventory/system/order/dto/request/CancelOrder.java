@@ -13,7 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CancelOrder {
     @NotNull
-    private final UUID orderID;
+    private final UUID orderId;
     @NotNull
     private final OrderStatus orderStatus;
 }

@@ -41,14 +41,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public GetOrderResponse getOrder(UUID orderID) {
-        Order order = orderRepository.findOrder(orderID);
+    public GetOrderResponse getOrder(UUID orderId) {
+        Order order = orderRepository.findOrder(orderId);
         return orderDataMapper.orderToGetOrderResponse(order);
     }
 
     @Override
     public OrderPaymentResponse payOrder(PayOrder payOrder) {
-        Order order = orderRepository.findOrder(payOrder.getOrderID());
+        Order order = orderRepository.findOrder(payOrder.getOrderId());
         List<String> failureMessages = order.payOrder(payOrder.getAmount());
         if(!failureMessages.isEmpty())
             throw new InvalidStateException(failureMessages.toString());
@@ -59,8 +59,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderPaymentResponse cancelOrder(UUID orderID) {
-        Order order = orderRepository.findOrder(orderID);
+    public OrderPaymentResponse cancelOrder(UUID orderId) {
+        Order order = orderRepository.findOrder(orderId);
         List<String> failureMessages = order.cancelOrder();
         if(!failureMessages.isEmpty())
             throw new InvalidStateException(failureMessages.toString());

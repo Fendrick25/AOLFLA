@@ -8,13 +8,11 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 public class CreateProductResponse extends ProductResponse{
-
     @NotNull
     private final ProductLocation location;
-
     @Builder
-    public CreateProductResponse(@NotNull Integer id, @NotNull String name, ProductLocation location) {
-        super(id, name);
+    public CreateProductResponse(@NotNull Integer productId, @NotNull String name, ProductLocation location) {
+        super(productId, name);
         this.location = location;
     }
 }

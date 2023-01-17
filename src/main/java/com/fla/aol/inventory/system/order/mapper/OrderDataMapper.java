@@ -29,7 +29,7 @@ public class OrderDataMapper {
 
     public CreateOrderResponse orderToCreateOrderResponse(Order order){
         return CreateOrderResponse.builder()
-                .orderID(order.getOrderID())
+                .orderId(order.getId())
                 .total(order.getTotal())
                 .orderStatus(order.getOrderStatus())
                 .build();
@@ -37,7 +37,7 @@ public class OrderDataMapper {
 
     public GetOrderResponse orderToGetOrderResponse(Order order){
         return GetOrderResponse.builder()
-                .orderID(order.getOrderID())
+                .orderId(order.getId())
                 .total(order.getTotal())
                 .orderAddress(order.getOrderAddress())
                 .orderDetail(order.getOrderDetail())
@@ -48,14 +48,14 @@ public class OrderDataMapper {
 
     public OrderPaymentResponse orderToOrderPaymentResponse(Order order){
         return OrderPaymentResponse.builder()
-                .orderID(order.getOrderID())
+                .orderId(order.getId())
                 .orderStatus(order.getOrderStatus())
                 .build();
     }
 
     public OrderPaidEvent orderToOrderPaidEvent(Order order){
         return OrderPaidEvent.builder()
-                .orderID(order.getOrderID())
+                .orderId(order.getId())
                 .orderItems(order.getItems())
                 .purchasedAt(order.getOrderDetail().getPurchaseDate())
                 .build();
@@ -63,7 +63,7 @@ public class OrderDataMapper {
 
     public OrderCancelledEvent orderToOrderCancelledEvent(Order order){
         return OrderCancelledEvent.builder()
-                .orderID(order.getOrderID())
+                .orderId(order.getId())
                 .orderItems(order.getItems())
                 .purchasedAt(order.getOrderDetail().getPurchaseDate())
                 .build();
@@ -72,7 +72,7 @@ public class OrderDataMapper {
     private OrderItem createOrderOrderItemToOrderItem(CreateOrder.OrderItem orderItem){
         return OrderItem.builder()
                 .product(Product.builder()
-                        .id(orderItem.getProductID())
+                        .id(orderItem.getProductId())
                         .build())
                 .quantity(orderItem.getQuantity())
                 .build();
@@ -81,7 +81,7 @@ public class OrderDataMapper {
     private GetOrderResponse.OrderItem orderItemToGetOrderResponseOrderItem(OrderItem orderItem){
         return GetOrderResponse.OrderItem.builder()
                 .product(GetOrderResponse.Product.builder()
-                        .productID(orderItem.getProduct().getId())
+                        .productId(orderItem.getProduct().getId())
                         .name(orderItem.getProduct().getName())
                         .price(orderItem.getProduct().getPrice())
                         .build())

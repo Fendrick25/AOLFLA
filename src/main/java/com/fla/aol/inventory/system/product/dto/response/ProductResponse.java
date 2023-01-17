@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public abstract class ProductResponse{
     @NotNull
-    private final Integer id;
+    private final Integer productId;
     @NotNull
     private final String name;
 }

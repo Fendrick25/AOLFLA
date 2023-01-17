@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 public class OrderCancelledEvent extends OrderEvent{
     @Builder
-    public OrderCancelledEvent(UUID orderID, List<OrderItem> orderItems, ZonedDateTime purchasedAt) {
-        super(orderID, orderItems, purchasedAt);
+    public OrderCancelledEvent(UUID orderId, List<OrderItem> orderItems, ZonedDateTime purchasedAt) {
+        super(orderId, orderItems, purchasedAt);
     }
 }

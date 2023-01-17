@@ -13,8 +13,8 @@ public interface ProductService {
     CreateProductResponse createProduct(@Valid CreateProduct createProduct);
     void reduceProductStock(List<OrderItem> orderItems);
     void rollbackProductStock(List<OrderItem> orderItems);
-    GetProductResponse getProduct(Integer productID);
-    void deleteProduct(Integer productID);
+    GetProductResponse getProduct(Integer productId);
+    void deleteProduct(Integer productId);
 
 
 }

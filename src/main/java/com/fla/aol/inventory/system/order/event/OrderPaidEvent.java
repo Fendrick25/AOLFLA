@@ -12,7 +12,7 @@ import java.util.UUID;
 public class OrderPaidEvent extends OrderEvent{
 
     @Builder
-    public OrderPaidEvent(UUID orderID, List<OrderItem> orderItems, ZonedDateTime purchasedAt) {
-        super(orderID, orderItems, purchasedAt);
+    public OrderPaidEvent(UUID orderId, List<OrderItem> orderItems, ZonedDateTime purchasedAt) {
+        super(orderId, orderItems, purchasedAt);
     }
 }

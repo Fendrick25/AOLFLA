@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class GetProductResponse {
 
     @NotNull
-    private Integer id;
+    private Integer productId;
     @NotNull
     private String name;
     @NotNull

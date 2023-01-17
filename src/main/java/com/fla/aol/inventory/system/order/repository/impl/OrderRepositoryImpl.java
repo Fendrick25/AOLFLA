@@ -21,7 +21,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order findOrder(UUID orderID) {
-        return orderJpaRepository.findById(orderID).orElseThrow(() -> new ResourceAccessException("Order not found"));
+    public Order findOrder(UUID orderId) {
+        return orderJpaRepository.findById(orderId).orElseThrow(() -> new ResourceAccessException("Order not found"));
     }
 }

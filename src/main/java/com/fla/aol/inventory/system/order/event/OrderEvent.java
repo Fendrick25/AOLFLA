@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @RequiredArgsConstructor
 public abstract class OrderEvent {
-    private final UUID orderID;
+    private final UUID orderId;
     private final List<OrderItem> orderItems;
     private final ZonedDateTime purchasedAt;
 }

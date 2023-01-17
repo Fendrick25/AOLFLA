@@ -29,7 +29,7 @@ public class WarehouseException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(InvalidStateException.class)
-    public ResponseEntity<?> handleInvalidStateException(com.fla.aol.inventory.system.common.exception.InvalidStateException exception){
+    public ResponseEntity<?> handleInvalidStateException(InvalidStateException exception){
         List<String> details = new ArrayList<>();
         details.add(exception.getMessage());
 
