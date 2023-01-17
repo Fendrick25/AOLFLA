@@ -3,12 +3,10 @@ package com.fla.aol.inventory.system.product.service;
 import com.fla.aol.inventory.system.product.entity.Product;
 import com.fla.aol.inventory.system.product.valueobject.ProductLocation;
 import com.fla.aol.inventory.system.product.valueobject.ProductType;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-@Slf4j
 @Configuration
 public class ProductPrototype {
 

@@ -30,13 +30,13 @@ public class OrderController {
         return new ResponseEntity<>(new Data<>(orderService.getOrder(orderId)), HttpStatus.OK);
     }
 
-    @PutMapping("/pay")
-    public ResponseEntity<Data<OrderPaymentResponse>> payOrder(@RequestBody PayOrder payOrder){
-        return new ResponseEntity<>(new Data<>(orderService.payOrder(payOrder)), HttpStatus.OK);
-    }
-
     @PutMapping("{orderId}/cancel")
     public ResponseEntity<Data<OrderPaymentResponse>> cancelOrder(@PathVariable("orderId") UUID orderId){
         return new ResponseEntity<>(new Data<>(orderService.cancelOrder(orderId)), HttpStatus.OK);
+    }
+
+    @PutMapping("/pay")
+    public ResponseEntity<Data<OrderPaymentResponse>> payOrder(@RequestBody PayOrder payOrder){
+        return new ResponseEntity<>(new Data<>(orderService.payOrder(payOrder)), HttpStatus.OK);
     }
 }

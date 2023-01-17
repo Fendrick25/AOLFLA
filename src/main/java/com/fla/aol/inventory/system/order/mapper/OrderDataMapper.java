@@ -19,7 +19,9 @@ public class OrderDataMapper {
 
     public Order createOrderToOrder(CreateOrder createOrder){
         return Order.builder()
-                .items(createOrder.getItems().stream().map(this::createOrderOrderItemToOrderItem).collect(Collectors.toList()))
+                .items(createOrder.getItems().stream()
+                        .map(this::createOrderOrderItemToOrderItem)
+                        .collect(Collectors.toList()))
                 .orderAddress(createOrder.getAddress())
                 .orderDetail(OrderDetail.builder()
                         .recipientName(createOrder.getRecipientName())
@@ -42,7 +44,9 @@ public class OrderDataMapper {
                 .orderAddress(order.getOrderAddress())
                 .orderDetail(order.getOrderDetail())
                 .orderStatus(order.getOrderStatus())
-                .items(order.getItems().stream().map(this::orderItemToGetOrderResponseOrderItem).collect(Collectors.toList()))
+                .items(order.getItems().stream()
+                        .map(this::orderItemToGetOrderResponseOrderItem)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -85,7 +89,6 @@ public class OrderDataMapper {
                         .name(orderItem.getProduct().getName())
                         .price(orderItem.getProduct().getPrice())
                         .build())
-
                 .subTotal(orderItem.getSubTotal())
                 .build();
     }
