@@ -2,7 +2,7 @@ package com.fla.aol.inventory.system.product.mapper;
 
 import com.fla.aol.inventory.system.product.dto.response.CreateProductResponse;
 import com.fla.aol.inventory.system.product.dto.response.GetProductResponse;
-import com.fla.aol.inventory.system.product.dto.request.ProductDetailDTO;
+import com.fla.aol.inventory.system.product.dto.ProductDetailDTO;
 import com.fla.aol.inventory.system.product.entity.Product;
 import org.springframework.stereotype.Component;
 

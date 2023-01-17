@@ -1,4 +1,4 @@
-package com.fla.aol.inventory.system.product.dto.request;
+package com.fla.aol.inventory.system.product.dto;
 
 import lombok.Builder;
 import lombok.Getter;

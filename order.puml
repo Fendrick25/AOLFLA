@@ -1,0 +1,220 @@
+@startuml
+interface OrderService {
+~ CreateOrderResponse createOrder(CreateOrder)
+~ GetOrderResponse getOrder(UUID)
+~ OrderPaymentResponse payOrder(PayOrder)
+~ OrderPaymentResponse cancelOrder(UUID)
+}
+
+class CreateOrderResponse <<Builder>>{
+- UUID orderId
+- BigDecimal total
+- OrderStatus orderStatus
+}
+
+class OrderItem <<Builder>>{
+- String id
+- Product product
+- int quantity
+- BigDecimal subTotal
+- Order order
+~ void initializeOrderItem(String)
+}
+
+class OrderEventListener {
+- ProductService productService
+- NotificationService notificationService
++ void orderPaid(OrderPaidEvent)
++ void orderCancelled(OrderCancelledEvent)
+}
+
+class Order <<Builder>>{
+- UUID id
+- BigDecimal total
+- OrderStatus orderStatus
+- OrderAddress orderAddress
+- List<OrderItem> items
+- OrderDetail orderDetail
++ void initializeOrder()
++ List<String> payOrder(BigDecimal)
++ List<String> cancelOrder()
+- void initializeOrderItems()
+}
+
+class GetOrderResponse <<Builder>>{
+- UUID orderId
+- List<OrderItem> items
+- BigDecimal total
+- OrderDetail orderDetail
+- OrderAddress orderAddress
+- OrderStatus orderStatus
+}
+
+class GetOrderResponse.OrderItem <<Builder>>{
+- Product product
+- BigDecimal subTotal
+}
+
+class GetOrderResponse.Product <<Builder>>{
+- Integer productId
+- String name
+- BigDecimal price
+}
+
+class OrderDetail <<Builder>>{
+- String recipientName
+- ZonedDateTime purchaseDate
+}
+
+class OrderRepositoryImpl {
+- OrderJpaRepository orderJpaRepository
++ Order saveOrder(Order)
++ Order findOrder(UUID)
+}
+
+class CancelOrder {
+- UUID orderId
+- OrderStatus orderStatus
+}
+
+class OrderDataMapper {
++ Order createOrderToOrder(CreateOrder)
++ CreateOrderResponse orderToCreateOrderResponse(Order)
++ GetOrderResponse orderToGetOrderResponse(Order)
++ OrderPaymentResponse orderToOrderPaymentResponse(Order)
++ OrderPaidEvent orderToOrderPaidEvent(Order)
++ OrderCancelledEvent orderToOrderCancelledEvent(Order)
+- OrderItem createOrderOrderItemToOrderItem(CreateOrder.OrderItem)
+- GetOrderResponse.OrderItem orderItemToGetOrderResponseOrderItem(OrderItem)
+}
+
+class CreateOrder {
+- String recipientName
+- OrderAddress address
+- List<OrderItem> items
+}
+
+class CreateOrder.OrderItem {
+- Integer productId
+- int quantity
+}
+
+class OrderAddress <<Builder>>{
+- String street
+- String city
+- String postalCode
+- String detail
+}
+
+interface OrderJpaRepository {
+}
+
+class OrderController {
+- OrderService orderService
++ ResponseEntity<Data<CreateOrderResponse>> createOrder(CreateOrder)
++ ResponseEntity<Data<GetOrderResponse>> getOrder(UUID)
++ ResponseEntity<Data<OrderPaymentResponse>> payOrder(PayOrder)
++ ResponseEntity<Data<OrderPaymentResponse>> cancelOrder(UUID)
+}
+
+abstract class OrderEvent {
+- UUID orderId
+- List<OrderItem> orderItems
+- ZonedDateTime purchasedAt
+}
+
+class OrderCancelledEvent <<Builder>>{
+}
+
+class OrderServiceImpl {
+- OrderDataMapper orderDataMapper
+- OrderRepository orderRepository
+- ProductRepository productRepository
+- ProductService productService
+- ApplicationEventPublisher applicationEventPublisher
++ CreateOrderResponse createOrder(CreateOrder)
++ GetOrderResponse getOrder(UUID)
++ OrderPaymentResponse payOrder(PayOrder)
++ OrderPaymentResponse cancelOrder(UUID)
+}
+
+class PayOrder {
+- UUID orderId
+- BigDecimal amount
+}
+
+class OrderPaidEvent <<Builder>>{
+}
+
+enum OrderStatus {
++  WAITING_FOR_PAYMENT
++  PAID
++  CANCELLED
+}
+
+class OrderPaymentResponse <<Builder>>{
+- UUID orderId
+- OrderStatus orderStatus
+}
+
+interface OrderRepository {
+~ Order saveOrder(Order)
+~ Order findOrder(UUID)
+}
+
+interface ProductRepository {
+}
+
+interface ProductService{
+}
+
+interface NotificationService{
+}
+
+interface ApplicationEventPublisher{
+}
+
+GetOrderResponse +.. GetOrderResponse.OrderItem
+GetOrderResponse +.. GetOrderResponse.Product
+OrderRepository <|.. OrderRepositoryImpl
+CreateOrder +.. CreateOrder.OrderItem
+JpaRepository <|-- OrderJpaRepository
+OrderEvent <|-- OrderCancelledEvent
+OrderService <|.. OrderServiceImpl
+OrderEvent <|-- OrderPaidEvent
+
+OrderItem "1  " o-- "1 .. * " Order
+OrderDetail "1  " o-- "1 " Order
+Order "1" *-- "1" OrderStatus
+Order "1" *-- "1" OrderAddress
+
+OrderDetail "1  " o-- "1 " GetOrderResponse
+GetOrderResponse "1" *-- "1" OrderStatus
+GetOrderResponse "1" *-- "1" OrderAddress
+
+CreateOrderResponse "1" *-- "1" OrderStatus
+CancelOrder "1" *-- "1" OrderStatus
+OrderPaymentResponse "1" *-- "1" OrderStatus
+
+CreateOrder "1" *-- "1" OrderAddress
+OrderEvent "1.. *  " o-- "1 " OrderItem
+
+OrderDataMapper "1" *-- "1" OrderServiceImpl
+OrderServiceImpl *-- ApplicationEventPublisher
+
+OrderController --> OrderService
+OrderController --> "<<Inject>>" OrderServiceImpl
+
+OrderServiceImpl --> OrderRepository
+OrderServiceImpl --> "<<Inject>>" OrderRepositoryImpl
+
+OrderServiceImpl --> ProductRepository
+OrderServiceImpl --> "<<Inject>>" ProductRepositoryImpl
+
+OrderEventListener --> ProductService
+OrderEventListener --> "<<Inject>>" ProductServiceImpl
+
+OrderEventListener --> NotificationService
+OrderEventListener --> "<<Inject>>" NotificationServiceImpl
+
+@enduml

@@ -3,7 +3,6 @@ package com.fla.aol.inventory.system.product.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -25,17 +24,4 @@ public class ProductDetail {
     @MapsId
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductDetail that = (ProductDetail) o;
-        return id.equals(that.id) && product.equals(that.product);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, product);
-    }
 }

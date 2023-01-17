@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/orders")
 public class OrderController {
-
     private final OrderService orderService;
 
     @PostMapping

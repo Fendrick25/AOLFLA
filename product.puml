@@ -1,0 +1,149 @@
+@startuml
+enum ProductLocation {
++  SECTION_100
++  SECTION_200
++  SECTION_300
+}
+
+enum ProductType {
++  BASIC_MATERIAL
++  ELECTRONICS
++  BOOKS
+}
+
+class Product <<Builder>>{
+- Integer id
+- String name
+- BigDecimal price
+- int quantity
+- ProductType type
+- ProductDetail detail
+- ProductLocation location
+}
+
+abstract class ProductResponse {
+- Integer productId
+- String name
+}
+
+class ProductRepositoryImpl {
+- ProductJpaRepository productJpaRepository
++ Product saveProduct(Product)
++ Product findProduct(Integer)
++ void saveProducts(List<Product>)
++ void deleteProduct(Integer)
+}
+
+interface ProductService {
+~ CreateProductResponse createProduct(CreateProduct)
+~ void reduceProductStock(List<OrderItem>)
+~ void rollbackProductStock(List<OrderItem>)
+~ GetProductResponse getProduct(Integer)
+~ void deleteProduct(Integer)
+}
+
+class ProductPrototype {
++ Product productBasicMaterial()
++ Product productElectronics()
++ Product productBooks()
+}
+
+class GetProductResponse <<Builder>>{
+- Integer productId
+- String name
+- BigDecimal price
+- int quantity
+- ProductDetailDTO detail
+- ProductLocation location
+- ProductType type
+}
+
+class CreateProductResponse <<Builder>>{
+- ProductLocation location
+}
+
+class ProductController {
+- ProductService productService
++ ResponseEntity<Data<CreateProductResponse>> createProduct(CreateProduct)
++ ResponseEntity<Data<GetProductResponse>> getProduct(Integer)
++ ResponseEntity<Void> deleteProduct(Integer)
+}
+
+
+class ProductDataMapper {
++ CreateProductResponse productToCreateProductResponse(Product)
++ GetProductResponse productToGetProductResponse(Product)
+}
+
+class ProductServiceImpl {
+- ProductRepository productRepository
+- ProductDataMapper productDataMapper
+- ApplicationContext applicationContext
++ CreateProductResponse createProduct(CreateProduct)
++ void reduceProductStock(List<OrderItem>)
++ void rollbackProductStock(List<OrderItem>)
++ GetProductResponse getProduct(Integer)
++ void deleteProduct(Integer)
+- Product createProductByType(ProductType)
+}
+
+interface ApplicationContext{
+
+}
+
+interface ProductRepository {
+~ Product saveProduct(Product)
+~ Product findProduct(Integer)
+~ void saveProducts(List<Product>)
+~ void deleteProduct(Integer)
+}
+
+interface ProductJpaRepository {
+}
+
+
+class ProductDetailDTO <<Builder>>{
+- Double weight
+- String description
+}
+
+class CreateProduct {
+- String name
+- BigDecimal price
+- int quantity
+- ProductDetailDTO detail
+- ProductType type
+}
+
+class ProductDetail <<Builder>>{
+- Integer id
+- Double weight
+- String description
+- Product product
+}
+
+
+
+ProductRepository <|.. ProductRepositoryImpl
+ProductResponse <|-- CreateProductResponse
+ProductService <|.. ProductServiceImpl
+JpaRepository <|-- ProductJpaRepository
+ProductDetail "1" o-- "1" Product
+Product "1" *-- "1" ProductLocation
+Product "1" *-- "1" ProductType
+CreateProduct "1" o-- "1" ProductDetailDTO
+CreateProduct "1" *-- "1" ProductType
+CreateProductResponse "1" *-- "1" ProductLocation
+ProductController --> ProductService
+ProductController --> "<<Inject>>" ProductServiceImpl
+ProductRepositoryImpl --> ProductJpaRepository
+ProductDataMapper "1" *-- "1" ProductServiceImpl
+ProductServiceImpl *-- ApplicationContext
+
+ProductServiceImpl --> ProductRepository
+ProductServiceImpl --> "<<Inject>>" ProductRepositoryImpl
+
+GetProductResponse "1" o-- "1" ProductDetailDTO
+GetProductResponse "1" *-- "1" ProductType
+GetProductResponse "1" *-- "1" ProductLocation
+@enduml

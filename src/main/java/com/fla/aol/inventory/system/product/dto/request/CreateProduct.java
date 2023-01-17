@@ -1,5 +1,6 @@
 package com.fla.aol.inventory.system.product.dto.request;
 
+import com.fla.aol.inventory.system.product.dto.ProductDetailDTO;
 import com.fla.aol.inventory.system.product.valueobject.ProductType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
